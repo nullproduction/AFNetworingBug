@@ -1,9 +1,5 @@
 //
 //  ViewController.h
-//  AFNetworingBug
-//
-//  Created by Mezhevikin on 21.05.14.
-//  Copyright (c) 2014 mezhevikin. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
