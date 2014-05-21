@@ -17,7 +17,7 @@
 
 - (void)startDownload
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:@"Downloads"];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunesconnect.apple.com/downloads/Documentation/AppTransferTutorial.mov?itcKey=1400686864_f4496d605f190f230687304aeeff494e"]];
