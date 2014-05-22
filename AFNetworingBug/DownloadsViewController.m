@@ -7,6 +7,10 @@
 #import "UIProgressView+AFNetworking.h"
 
 @implementation DownloadsViewController
+{
+    AFURLSessionManager *manager;
+    NSURLSessionDownloadTask *task;
+}
 
 - (void)viewDidLoad
 {
@@ -18,24 +22,26 @@
 - (void)startDownload
 {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunesconnect.apple.com/downloads/Documentation/AppTransferTutorial.mov?itcKey=1400686864_f4496d605f190f230687304aeeff494e"]];
     
-    NSURLSessionDownloadTask *task =
-    [manager downloadTaskWithRequest:request
-                         progress:nil
-     destination:^NSURL *(NSURL *targetPath, NSURLResponse *response)
-     {
+    task = [manager downloadTaskWithRequest:request
+     progress:nil
+     destination:^NSURL *(NSURL *targetPath, NSURLResponse *response){
          return nil;
      }
-     completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
-     {
+     completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error){
          
-     }
-     ];
+     }];
     [task resume];
     [self.progressView setProgressWithDownloadProgressOfTask:task animated:YES];
+}
+
+- (void)dealloc
+{
+    [task removeObserver:self.progressView forKeyPath:@"state"];
+    [task removeObserver:self.progressView forKeyPath:@"countOfBytesReceived"];
 }
 
 @end
